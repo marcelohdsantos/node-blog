@@ -7,11 +7,20 @@ require('dotenv').config();
 const categoriesController = require("./categories/CategoriesController");
 const articlesController = require("./articles/ArticlesController");
 
+const Article = require("./articles/Article");
+const Category = require("./categories/Category");
+
 //view engine
 app.set('view engine', 'ejs');
 
 //static
-app.set(express.static('public'));
+app.use(express.static('public', {
+    setHeaders: (res, path, stat) => {
+        if (path.endsWith('.css')) {
+            res.setHeader('Content-Type', 'text/css');
+        }
+    }
+}));
 
 //body parser
 const bodyParser = require("body-parser");
