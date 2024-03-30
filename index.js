@@ -14,13 +14,7 @@ const Category = require("./categories/Category");
 app.set('view engine', 'ejs');
 
 //static
-app.use(express.static('public', {
-    setHeaders: (res, path, stat) => {
-        if (path.endsWith('.css')) {
-            res.setHeader('Content-Type', 'text/css');
-        }
-    }
-}));
+app.use(express.static('public'));
 
 //body parser
 const bodyParser = require("body-parser");

@@ -19,4 +19,6 @@ const Article = connection.define('articles', {
 Category.hasMany(Article); // Relacionamento 1 p/ muitos
 Article.belongsTo(Category); // Relacionamento 1 p/ 1
 
+//Article.sync({ force: true });
+
 module.exports = Article;
