@@ -22,7 +22,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 
 //Database
 connection.authenticate().then(() => {
-    console.log("Conexão feita com sucesso!");
+    console.log("Conexão com o banco feita com sucesso!");
 }).catch((error) => {
     console.log("Conexão com o banco falhou: ",error);
 })

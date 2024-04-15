@@ -1,36 +1,62 @@
-<%- include ('../../partials/header.ejs') %>
-    <%- include ('../../partials/navbar.ejs') %>
-        <div class="container">
-            <hr>
-            <h2> Categorias </h2>
-            <hr>
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Título</th>
-                        <th>Slug</th>
-                        <th>Ações</th>
-                    </tr>
-                </thead>
-                <tbody>
+<%- include ('../../partials/header.ejs') %> <%- include
+('../../partials/navbar.ejs') %>
+<div class="container">
+  <hr />
+  <h2>Categorias</h2>
+  <a class="btn btn-success" href="/admin/categories/new">
+    Criar Nova Categoria
+  </a>
+  <hr />
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Título</th>
+        <th>Slug</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% categories.forEach(function(category) { %>
+      <tr>
+        <th><%= category.id %></th>
+        <th><%= category.title %></th>
+        <th><%= category.slug %></th>
+        <th class="align-items">
+          <form
+            method="POST"
+            action="/categories/delete"
+            onsubmit="confirmarDelete(event, this)"
+          >
+            <input type="hidden" name="id" value="<%- category.id %>" />
+            <button class="btn btn-danger">Apagar</button>
+          </form>
 
-                    <% categories.forEach(function(category) { %>
-                        <tr>
-                            <th>
-                                <%= category.id %>
-                            </th>
-                            <th>
-                                <%= category.title %>
-                            </th>
-                            <th>
-                                <%= category.slug %>
-                            </th>
-                            <th></th>
-                        </tr>
-                        <% }); %>
+          <button class="btn btn-warning">Editar</button>
+        </th>
+      </tr>
+      <% }); %>
+    </tbody>
+  </table>
+</div>
+<%- include ('../../partials/footer.ejs') %>
 
-                </tbody>
-            </table>
-        </div>
-        <%- include ('../../partials/footer.ejs') %>
+<script>
+  function confirmarDelete(event, form) {
+    event.preventDefault();
+    var decision = confirm("Você quer deletar esta categoria ? ");
+
+    if (decision) {
+      form.submit();
+    }
+  }
+</script>
+
+<style scoped>
+  .align-items {
+    display: flex;
+    justify-content: start;
+    flex-direction: row;
+    gap: 6px;
+  }
+</style>
