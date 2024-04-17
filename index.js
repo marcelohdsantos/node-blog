@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const connection = require("./database/database");
+const path = require('path');
 
 require('dotenv').config();
 
@@ -14,7 +15,10 @@ const Category = require("./categories/Category");
 app.set('view engine', 'ejs');
 
 //static
-app.use(express.static('public'));
+// app.use(express.static('public'));
+app.use(express.static(path.join(__dirname + 'public')));
+/* New Route to the TinyMCE Node module */
+app.use('/tinymce', express.static(path.join(__dirname + 'tinymce')));
 
 //body parser
 const bodyParser = require("body-parser");
